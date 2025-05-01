@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Subject{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-dark fw-bold" style="color: #E1AD01;">Edit Subject</h2>
+    <form method="POST" class="p-4 shadow-lg rounded-4" style="background-color: #FFF8E1;">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Subject Name</label>
+            <input type="text" class="form-control border-0 shadow-sm" name="name" value="{{ subject.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea class="form-control border-0 shadow-sm" name="description">{{ subject.description }}</textarea>
+        </div>
+        <button type="submit" class="btn text-white shadow-sm" style="background-color: #D4A017;">Save Changes</button>
+        <a href="{{ url_for('admin_subjects') }}" class="btn btn-secondary shadow-sm">Cancel</a>
+    </form>
+</div>
+{% endblock %}

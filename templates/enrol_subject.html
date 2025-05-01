@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 fw-bold" style="color: black;">Available Subjects</h2>
+
+    {% if subjects %}
+        <div class="row">
+            {% for subject in subjects %}
+            <div class="col-md-6">
+                <div class="card mb-4 shadow-lg border-0 rounded-4">
+                    <div class="card-header text-dark" style="background-color: #FFC107;">
+                        <h5 class="mb-0 fw-semibold">{{ subject.name }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">{{ subject.description }}</p>
+                        
+                        <form action="{{ url_for('enroll_in_subject', subject_id=subject.id) }}" method="post">
+                            <button type="submit" class="btn text-white" style="background-color: black;">Enroll</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No subjects available at the moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

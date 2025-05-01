@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Chapter{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4" style="color: black;">Edit Chapter</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Chapter Name</label>
+            <input type="text" class="form-control" name="name" value="{{ chapter.name }}" required
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+            <label class="form-label fw-bold" style="color: black;">Description</label>
+            <input type="text" class="form-control" name="description" value="{{ chapter.description }}" required
+                    style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+        <button type="submit" class="btn" style="background-color: #B7950B; color: white;">Save Changes</button>
+        <a href="{{ url_for('admin_subjects') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

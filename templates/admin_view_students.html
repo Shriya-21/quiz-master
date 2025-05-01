@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4 fw-bold">Students Enrolled in {{ subject.name }}</h2>
+
+    {% if students %}
+        <div class="table-responsive">
+            <table class="table shadow-sm align-middle">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date of Birth</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td class="fw-medium">{{ student.id }}</td>
+                        <td>{{ student.full_name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.dob if student.dob else 'N/A' }}</td>
+                        <td>
+                            <a href="{{ url_for('view_student', student_id=student.id) }}" class="btn btn-sm btn-dark">
+                                <i class="fas fa-user"></i> View Profile
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <i class="fas fa-exclamation-circle"></i> No students have enrolled in this subject yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

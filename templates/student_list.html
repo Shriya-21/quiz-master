@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Student List - Quiz Master{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 20px;">
+    <h2 class="fw-bold text-dark mb-2" style="margin-top: 0;">Student List</h2>
+
+    {% if students %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark text-light">
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Enrolled Subjects</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td class="fw-bold">{{ loop.index }}</td>
+                    <td>{{ student.full_name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>
+                        {% if student.subjects %}
+                            {{ ', '.join(student.subjects | map(attribute='name')) }}
+                        {% else %}
+                            <span class="text-muted">No subjects</span>
+                        {% endif %}
+                    </td>
+                    <td class = "d-flex gap-2">
+                        <a href="{{ url_for('view_student', student_id=student.id) }}" class="btn btn-dark btn-sm">View Profile</a>
+                        {% if student.blocked %}
+                            <form method="POST" action="{{ url_for('unblock_student', user_id=student.id) }}" style="display:inline;">
+                                <button type="submit" class="btn btn-warning btn-sm">Unblock</button>
+                            </form>
+                        {% else %}
+                            <form method="POST" action="{{ url_for('block_student', user_id=student.id) }}" style="display:inline;">
+                                <button type="submit" class="btn btn-warning btn-sm">Block</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-muted">No students registered yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

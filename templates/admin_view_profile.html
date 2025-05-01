@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    
+    <h2 class="text-center mb-4 fw-bold text-uppercase">Student Profile</h2>
+
+    <div class="card shadow-lg border-0 p-4">
+        <div class="row align-items-center">
+            
+            <div class="col-md-4 text-center">
+                <i class="fas fa-user-circle fa-7x text-secondary"></i>
+            </div>
+
+            <div class="col-md-8">
+                <p class="mb-2"><strong>Full Name:</strong> {{ user.full_name }}</p>
+                <p class="mb-2"><strong>Email:</strong> {{ user.email }}</p>
+                <p class="mb-2"><strong>Date of Birth:</strong> {{ user.dob.strftime('%Y-%m-%d') if user.dob else 'N/A' }}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-5">
+            <h3 class="fw-bold text-center">Enrolled Subjects</h3>
+            <div class="list-group mt-3 shadow-sm">
+                {% for subject in user.subjects %}
+                    <div class="list-group-item border-0 d-flex align-items-center bg-light">
+                        <i class="fas fa-book me-2"></i> {{ subject.name }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning text-center mt-2">
+                        <i class="fas fa-exclamation-circle"></i> No subjects enrolled.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Quiz History -->
+        <div class="col-md-7">
+            <h3 class="fw-bold text-center">Quiz History</h3>
+            {% if quizzes %}
+                <div class="table-responsive">
+                    <table class="table shadow-sm align-middle">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th>Subject</th>
+                                <th>Quiz</th>
+                                <th>Score</th>
+                                <th>Date Attempted</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for score in quizzes %}
+                            <tr>
+                                <td class="fw-semibold">{{ score.quiz.subject.name }}</td>
+                                <td class="fw-medium">{{ score.quiz.name }}</td>
+                                <td class="fw-bold text-success">{{ score.total_scored }} / {{ score.quiz.total_marks }}</td>
+                                <td>{{ score.time_stamp_of_attempt.strftime('%Y-%m-%d') }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-warning text-center">
+                    <i class="fas fa-exclamation-circle"></i> No quizzes attempted yet.
+                </div>
+            {% endif %}
+        </div>        
+
+    </div>
+</div>
+{% endblock %}

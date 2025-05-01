@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Your Subjects{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="fw-bold text-dark">Your Subjects</h2>
+
+    <div class="row">
+        {% for subject in subjects %}
+        <div class="col-md-6 mb-4">
+            <div class="subject-card p-3 position-relative shadow-sm border-0 rounded" style="background-color: #fff8e1; color: #3e2723;">
+                
+                <div class="dropdown position-absolute top-0 end-0 p-2">
+                    <button class="btn btn-light action-btn border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="fw-bold">⋮</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <form method="POST" action="{{ url_for('unenroll', subject_id=subject.id) }}" onsubmit="return confirm('Are you sure you want to unenroll from {{ subject.name }}?');">
+                                <button type="submit" class="dropdown-item text-danger">Unenroll</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+                <h4 class="fw-bold">{{ subject.name }}</h4>
+                <p class="text-muted">Enrolled in: {{ subject.name }}</p>
+
+                {% if subject.chapters %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered mt-2">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Chapter</th>
+                                    <th>Quiz Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for chapter in subject.chapters %}
+                                    {% for quiz in chapter.quizzes %}
+                                    <tr>
+                                        <td class="fw-semibold">{{ chapter.name }}</td>
+                                        <td class="fw-semibold">{{ quiz.name }}</td>
+                                        <td>
+                                            <a href="{{ url_for('view_quiz', quiz_id=quiz.quiz_id) }}" class="btn btn-outline-dark btn-sm">View</a>
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td class="fw-semibold">{{ chapter.name }}</td>
+                                        <td class="text-muted">No Quizzes</td>
+                                        <td>-</td>
+                                    </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted small">No chapters available.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

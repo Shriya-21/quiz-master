@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Quizzes Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="padding-top: 20px;">
+    <h2 class="fw-bold text-dark">Quizzes Dashboard</h2>
+
+    {% for subject in subjects %}
+    <div class="card mb-4 shadow-sm border-0" style="background-color: #fff8e1; color: #3e2723;">
+        <div class="card-body">
+            <h4 class="card-title fw-bold">{{ subject.name }}</h4>
+            <p class="text-muted">{{ subject.description }}</p>
+
+            {% for chapter in subject.chapters %}
+                <h5 class="fw-bold mt-3">{{ chapter.name }}</h5>
+                <p class="text-muted">{{ chapter.description }}</p>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Quiz Name</th>
+                                <th>Total Marks</th>
+                                <th>Quiz Duration</th>
+                                <th>Deadline</th>
+                                <th>Submissions</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for quiz in chapter.quizzes %}  
+                            <tr>
+                                <td class="fw-semibold">{{ quiz.name }}</td>
+                                <td>{{ quiz.total_marks }}</td>
+                                <td>{{ quiz.quiz_duration }}</td>
+                                <td>{{ quiz.deadline }}</td>
+                                <td>
+                                    <a href="{{ url_for('view_submissions', quiz_id=quiz.quiz_id) }}" class="btn btn-outline-dark">View</a>
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('view_quiz', quiz_id=quiz.quiz_id) }}" class="btn btn-outline-secondary">View</a>
+                                    <a href="{{ url_for('edit_quiz', quiz_id=quiz.quiz_id) }}" class="btn btn-outline-warning">Edit</a>
+                                    <form method="POST" action="{{ url_for('delete_quiz', quiz_id=quiz.quiz_id) }}" onsubmit="return confirm('Are you sure you want to delete quiz {{ quiz.name }}?');" style="display: inline;">
+                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{{ url_for('add_quiz', chapter_id=chapter.id) }}" class="btn btn-dark">Add Quiz</a>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p class="text-muted">No subjects found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

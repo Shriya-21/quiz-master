@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Add Subject{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4" style="color: black;">Add New Subject</h2>
+    
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Subject Name</label>
+            <input type="text" class="form-control" name="name" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Description</label>
+            <textarea class="form-control" name="description" 
+                      style="border: 1px solid #D4AC0D; background-color: #FCF3CF;"></textarea>
+        </div>
+        
+        <button type="submit" class="btn" style="background-color: black; color: white;">Add Subject</button>
+    </form>
+
+    <a href="{{ url_for('admin_subjects') }}" class="btn btn-secondary mt-3">Cancel</a>
+</div>
+{% endblock %}

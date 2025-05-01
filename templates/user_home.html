@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center mt-5" style="background-color: #f5f5f5; padding: 40px; border-radius: 12px;">
+    <h1 class="mb-4 text-dark fw-bold">Welcome, {{ current_user.full_name }}!</h1>
+    <p class="lead text-secondary">What would you like to do?</p>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffeb3b; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">View Scores</h5>
+                    <p class="card-text">Check your past quiz scores.</p>
+                    <a href="{{ url_for('user_quizzes') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffd54f; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Take a Quiz</h5>
+                    <p class="card-text">Take a new quiz and test your knowledge.</p>
+                    <a href="{{ url_for('user_subjects') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffca28; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Enroll Subjects</h5>
+                    <p class="card-text">View all subjects the available subjects you may be interested in.</p>
+                    <a href="{{ url_for('enrol_subject') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffb300; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Edit Profile</h5>
+                    <p class="card-text">Update your profile information.</p>
+                    <a href="{{ url_for('user_profile') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center mt-5" style="background-color: #f5f5f5; padding: 40px; border-radius: 12px;">
+    <h1 class="mb-4 text-dark fw-bold">Welcome, Admin!</h1>
+    <p class="lead text-secondary">What would you like to do?</p>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 mt-4">
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffd54f; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Subjects Dashboard</h5>
+                    <p class="card-text">Manage and edit existing subjects.</p>
+                    <a href="{{ url_for('admin_subjects') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffca28; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Quiz Dashboard</h5>
+                    <p class="card-text">View and manage all quizzes.</p>
+                    <a href="{{ url_for('admin_quizzes') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffb300; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">View Students</h5>
+                    <p class="card-text">Check student details and performance.</p>
+                    <a href="{{ url_for('student_list') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card shadow-lg border-0" style="background-color: #ffeb3b; color: #212121;">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">Quiz Master Statistics</h5>
+                    <p class="card-text">Look at Quiz Master Statistics and Summary</p>
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-dark ripple">Go</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Add Quiz{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4" style="color: black;">Add Quiz for {{ chapter.name }}</h2>
+    
+    <form method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label fw-bold" style="color: black;">Quiz Name</label>
+            <input type="text" class="form-control" id="name" name="name" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+        <div class="mb-3">
+            <label for="quiz_duration" class="form-label fw-bold" style="color: black;">Exam Duration (in minutes)</label>
+            <input type="number" class="form-control" id="quiz_duration" name="quiz_duration" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+        <div class="mb-3">
+            <label for="deadline" class="form-label fw-bold" style="color: black;">Deadline</label>
+            <input type="datetime-local" id="deadline" name="deadline" class="form-control" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+
+        <button type="submit" class="btn" style="background-color: black; color: white;">Add Quiz</button>
+    </form>
+
+    <a href="{{ url_for('admin_quizzes') }}" class="btn btn-secondary mt-3">Done</a>
+</div>
+{% endblock %}

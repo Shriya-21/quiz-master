@@ -1,0 +1,162 @@
+.navbar {
+    background: linear-gradient(135deg, #212121, #424242);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #ffeb3b !important;
+}
+.navbar .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.navbar .nav-link:hover {
+    color: #ffeb3b !important;
+}
+.navbar .nav-item:not(:last-child)::after {
+    border-right: 2px solid rgba(255, 255, 255, 0.3);
+    padding-right: 12px;
+    margin-right: 12px;
+}
+.navbar .dropdown-menu {
+    background-color: #424242;
+    border: none;
+    border-radius: 8px;
+}
+.navbar .dropdown-item {
+    color: white;
+}
+.navbar .dropdown-item:hover {
+    background-color: #ff9800;
+}
+.navbar-text {
+    color: #ffffff;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.search-bar {
+    max-width: 400px;
+    flex-grow: 1;
+}
+.search-bar input {
+    border-radius: 20px;
+    background-color: #616161;
+    color: white;
+    border: none;
+}
+.search-bar input::placeholder {
+    color: #bdbdbd;
+}
+.search-bar button {
+    border-radius: 20px;
+    background-color: #ffeb3b;
+    border: none;
+    color: #212121;
+    font-weight: bold;
+}
+
+.alert {
+    display: inline-block;
+    width: 100%;
+    background: linear-gradient(135deg, #212121, #424242);
+    color: white;
+    border: none;
+    opacity: 0.95;
+}
+
+.btn-close {
+    filter: invert(1);
+}
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    margin-top: 0 !important;
+    padding-top: 30px !important;
+}
+.main-container {
+    min-height: calc(100vh - 100px); 
+    padding-bottom: 80px;
+    padding-top: 30px !important;
+}
+.footer {
+    position: sticky;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    padding: 30px;
+    background: #212121;
+    color: white;
+}
+.custom-title {
+    color: black !important;
+}
+.tooltip-icon {
+    font-size: 18px;
+    cursor: help;
+    margin-left: 5px;
+    color: black;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.glass-card {
+    background: rgba(33, 33, 33, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+}
+.glow-button {
+    transition: 0.3s;
+    box-shadow: 0 0 12px rgba(255, 235, 59, 0.7);
+    font-weight: bold;
+}
+.glow-button:hover {
+    box-shadow: 0 0 15px rgba(255, 235, 59, 1);
+    transform: scale(1.05);
+}
+    
+.slide-in {
+    transform: translateY(-100px);
+    opacity: 0;
+    animation: slideDown 1s ease-out forwards;
+}
+@keyframes slideDown {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.why-section {
+    margin-top: -70px;
+    padding-top: 10px;
+}

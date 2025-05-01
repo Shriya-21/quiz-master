@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4 fw-bold text-dark">Edit Profile</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4 p-4" style="background-color: #fff3e0;">
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-user-circle" style="font-size: 80px; color: #3e2723;"></i>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Full Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" name="full_name" class="form-control rounded-end-3" 
+                                       value="{{ user.full_name }}" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Date of Birth</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                <input type="date" name="dob" class="form-control rounded-end-3" 
+                                       value="{{ user.dob.strftime('%Y-%m-%d') if user.dob else '' }}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Gender</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" name="gender" class="form-control rounded-end-3" 
+                                       value="{{ user.gender }}" required>
+                            </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-dark btn-lg text-white">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                            <a href="{{ url_for('admin_profile' if user.is_admin else 'user_profile') }}" 
+                               class="btn btn-secondary btn-lg text-white">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

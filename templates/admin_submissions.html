@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 fw-bold">{{ quiz.name }} - Submissions</h2>
+
+    {% if scores %}
+        <div class="table-responsive">
+            <table class="table align-middle shadow-sm" style="border-radius: 12px; overflow: hidden;">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Score</th>
+                        <th>Completion Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for score in scores %}
+                    <tr>
+                        <td class="fw-medium">{{ score.user.full_name }}</td>
+                        <td class="text-success fw-bold">{{ score.total_scored }}</td>
+                        <td>{{ score.time_stamp_of_attempt.strftime('%Y-%m-%d %H:%M') if score.time_stamp_of_attempt else 'N/A' }}</td>
+                        <td>
+                            <a href="{{ url_for('view_transcript', quiz_id=score.quiz_id, user_id=score.user_id) }}" 
+                               class="btn btn-outline-dark btn-sm">
+                                <i class="fas fa-file-alt"></i> View Transcript
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <i class="fas fa-exclamation-circle"></i> No submissions yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

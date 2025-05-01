@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center fw-bold" style="color: #3e2723;">Quiz Details</h2>
+
+    <div class="card shadow-sm p-4 mt-3 border-0" style="background-color: #fffcf2;">
+        <h3 class="fw-bold" style="color: #3e2723;">{{ quiz.name }}</h3>
+        <p><strong>Subject:</strong> {{ quiz.chapter.subject.name }}</p>
+        <p><strong>Chapter:</strong> {{ quiz.chapter.name }}</p>
+        <p><strong>Deadline:</strong> {{ quiz.deadline.strftime('%d %b %Y, %I:%M %p') }}</p>
+        <p><strong>Duration:</strong> {{ quiz.quiz_duration }} minutes</p>
+        <p><strong>Number of Questions:</strong> {{ total_questions }}</p>
+        <p><strong>Total Marks:</strong> {{ total_marks }}</p>
+
+        {% if current_user.is_admin %}
+        <div class="d-flex gap-2 mt-3">
+            <a href="{{ url_for('edit_quiz', quiz_id=quiz.quiz_id) }}" class="btn btn-warning">Edit Quiz</a>
+            <a href="{{ url_for('view_submissions', quiz_id=quiz.quiz_id) }}" class="btn btn-info">View Submissions</a>
+            <form method="POST" action="{{ url_for('delete_quiz', quiz_id=quiz.quiz_id) }}" onsubmit="return confirm('Are you sure you want to delete quiz {{ quiz.name }}?');" style="display: inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+        {% else %}
+            {% if not user_attempt %}
+                {% if quiz.deadline > datetime %}
+                    <a href="{{ url_for('attempt_quiz', quiz_id=quiz.quiz_id) }}" class="btn btn-success mt-3">Attempt Quiz</a>
+                {% else %}
+                    <p class="text-danger fw-bold mt-3">Deadline Passed.</p>
+                {% endif %}
+            {% else %}
+                <a href="{{ url_for('view_transcript', quiz_id=quiz.quiz_id, user_id=user_attempt.user_id) }}" class="btn btn-secondary mt-3">View Transcript</a>
+            {% endif %}
+    
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

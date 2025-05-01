@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+</style>
+<div class="container mt-5 pt-5 d-flex justify-content-center">
+    <div class="card p-4 shadow-lg" style="width: 350px; background-color: #333; color: white; border-radius: 12px;">
+        <h2 class="text-light mb-4">Register</h2>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label for="full_name" class="form-label">Full Name</label>
+                <input type="text" name="full_name" id="full_name" class="form-control bg-dark text-white" placeholder="Full Name" required>
+            </div>
+
+            <div class="mb-3">            
+                <label for="gender">Gender</label>
+                <select class="form-control bg-dark text-white" id="gender" name="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Transgender">Transgender</option>
+                </select>
+            </div>
+                
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" name="email" id="email" class="form-control bg-dark text-white" placeholder="Email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input type="date" name="dob" id="dob" class="form-control bg-dark text-white" placeholder="dd-mm-yyyy" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <span class="tooltip-icon" data-toggle="tooltip" title="Must be at least 8 characters, include an uppercase letter, a number, and a special character.">&#9432;</span>
+                <div class="position-relative">
+                    <input type="password" id="password" class="form-control pe-5 bg-dark text-white" placeholder="Password" name="password" required>
+                    <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor: pointer;" onclick="togglePassword('password', 'togglePasswordIcon1')">
+                        <i class="fa-solid fa-eye text-white" id="togglePasswordIcon1"></i>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <span class="tooltip-icon" data-toggle="tooltip" title="Must be at least 8 characters, include an uppercase letter, a number, and a special character.">&#9432;</span>
+                <div class="position-relative">
+                    <input type="password" id="confirm_password" class="form-control pe-5 bg-dark text-white" placeholder="Confirm Password" name="confirm_password" required>
+                    <span class="position-absolute top-50 end-0 translate-middle-y me-3" style="cursor: pointer;" onclick="togglePassword('confirm_password', 'togglePasswordIcon2')">
+                        <i class="fa-solid fa-eye text-white" id="togglePasswordIcon2"></i>
+                    </span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning w-100">Register</button>
+        </form>
+
+        <div class="mt-3 text-center">
+            <p>Have an account? <a href="{{ url_for('login') }}" class="text-warning">Login</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword(inputId, iconId) {
+      const passwordInput = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+  </script>
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4" style="background-color: #f5f5f5; padding: 30px; border-radius: 12px;">
+    <h2 class="mb-4 text-center fw-bold text-dark">Quizzes</h2>
+
+    {% if quizzes %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped shadow-sm">
+                <thead class="text-white" style="background-color: #ffb300;">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Chapter</th>
+                        <th>Quiz</th>
+                        <th>Deadline</th>
+                        <th>Completion</th>
+                        <th>Score</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for quiz in quizzes %}
+                        <tr style="background-color: #fff8e1;">
+                            <td class="fw-bold">{{ quiz.chapter.subject.name }}</td>
+                            <td>{{ quiz.chapter.name }}</td>
+                            <td>{{ quiz.name }}</td>
+                            <td>{{ quiz.deadline }}</td>
+
+                            {% if quiz.quiz_id in score_dict %}
+                                <td><em class="text-success">Completed on {{ score_dict[quiz.quiz_id].time_stamp_of_attempt.strftime('%Y-%m-%d') }}</em></td>
+                                <td class="fw-bold">{{ score_dict[quiz.quiz_id].total_scored }} / {{ quiz.total_marks }}</td>
+                                <td><a href="{{ url_for('view_transcript', quiz_id=quiz.quiz_id, user_id=score_dict[quiz.quiz_id]['user_id']) }}" class="btn btn-dark btn-sm ripple">Transcript</a>
+                                <a href="{{ url_for('attempt_quiz', quiz_id=quiz.quiz_id) }}" class="btn btn-warning btn-sm ripple">Attempt Quiz</a></td>
+                            {% else %}
+                                <td><em class="text-danger">Not Attempted</em></td>
+                                <td>—</td>
+                                {% if quiz.deadline and quiz.deadline < current_time %}
+                                    <td><em class="text-danger">Deadline Passed</em></td>
+                                {% else %}
+                                    <td><a href="{{ url_for('attempt_quiz', quiz_id=quiz.quiz_id) }}" class="btn btn-warning btn-sm ripple">Attempt Quiz</a></td>
+                                {% endif %}
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-center text-muted">No quizzes available at the moment.</p>
+    {% endif %}
+</div>
+{% endblock %}

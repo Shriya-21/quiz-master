@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Search Results for <span class="text-primary">"{{ query }}"</span></h2>
+
+    {% if subjects or quizzes %}
+        <div class="row">
+            {% if subjects %}
+                <div class="col-md-6">
+                    <div class="p-3 mb-4 rounded shadow-sm" style="background-color: #F5F5F5;">
+                        <h5 class="fw-bold text-dark"><i class="fas fa-book me-2"></i>Subjects</h5>
+                        <ul class="list-unstyled mt-2">
+                            {% for subject in subjects %}
+                                <li class="py-2">
+                                    {% if subject in current_user.subjects %}
+                                    <a href="{{ url_for('user_subjects', subject_id=subject.id) }}" 
+                                       class="text-dark text-decoration-none d-flex align-items-center">
+                                        <i class="fas fa-chevron-right me-2"></i> {{ subject.name }}
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('enrol_subject', subject_id=subject.id) }}" 
+                                       class="text-danger text-decoration-none d-flex align-items-center">
+                                        <i class="fas fa-plus-circle me-2"></i> Enroll in {{ subject.name }}
+                                    </a>
+                                {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if quizzes %}
+                <div class="col-md-6">
+                    <div class="p-3 mb-4 rounded shadow-sm" style="background-color: #FAF3E0;">
+                        <h5 class="fw-bold text-dark"><i class="fas fa-question-circle me-2"></i>Quizzes</h5>
+                        <ul class="list-unstyled mt-2">
+                            {% for quiz in quizzes %}
+                                <li class="py-2">
+                                    <a href="{{ url_for('view_quiz', quiz_id=quiz.quiz_id) }}" 
+                                       class="text-dark text-decoration-none d-flex align-items-center">
+                                        <i class="fas fa-chevron-right me-2"></i> {{ quiz.subject_name }} - {{ quiz.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="alert alert-danger text-center" role="alert">
+            <i class="fas fa-exclamation-circle"></i> No results found.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

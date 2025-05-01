@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center fw-bold">Admin Dashboard</h1>
+
+    <!-- Centered Stats Cards -->
+    <div class="row justify-content-center text-center mt-4">
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 py-3" style="background-color: #FFD700;">
+                <div class="card-body">
+                    <h5 class="fw-bold text-dark">Total Students</h5>
+                    <h3 class="fw-bold text-white">{{ total_students }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 py-3" style="background-color: #FFC107;">
+                <div class="card-body">
+                    <h5 class="fw-bold text-dark">Total Subjects</h5>
+                    <h3 class="fw-bold text-white">{{ total_subjects }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 py-3" style="background-color: #FFB300;">
+                <div class="card-body">
+                    <h5 class="fw-bold text-dark">Total Quizzes</h5>
+                    <h3 class="fw-bold text-white">{{ total_quizzes }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="container mt-5">
+        <h2 class="text-center text-dark fw-bold mb-4"><i class="fas fa-chart-bar text-warning"></i> Enrollments & Performance</h2>
+        
+        <div class="row justify-content-center">
+
+            <!-- Bar Chart -->
+            {% if enrollments_bar_chart %}
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="p-3 rounded shadow-lg w-100 d-flex flex-column justify-content-center" style="background-color: #FFF3CD; border: 2px solid #FFC107;">
+                    <h5 class="fw-bold text-dark text-center">Subject-Wise Enrollments</h5>
+                    <img src="data:image/png;base64,{{ enrollments_bar_chart }}" class="img-fluid rounded mx-auto d-block" alt="Enrollments Bar Chart">
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Pie Chart -->
+            {% if enrollments_pie_chart %}
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="p-3 rounded shadow-lg w-100 d-flex flex-column justify-content-center" style="background-color: #FFECB3; border: 2px solid #FFD700;">
+                    <h5 class="fw-bold text-dark text-center">Enrollment Distribution</h5>
+                    <img src="data:image/png;base64,{{ enrollments_pie_chart }}" class="img-fluid rounded mx-auto d-block" alt="Enrollments Pie Chart">
+                </div>
+            </div>
+            {% endif %}
+    
+            <!-- Line Chart -->
+            {% if average_scores_chart %}
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="p-3 rounded shadow-lg w-100 d-flex flex-column justify-content-center" style="background-color: #FFF8E1; border: 2px solid #FFA000;">
+                    <h5 class="fw-bold text-dark text-center">Average Score per Subject</h5>
+                    <img src="data:image/png;base64,{{ average_scores_chart }}" class="img-fluid rounded mx-auto d-block" alt="Average Score Chart">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+            <h4 class="fw-bold"><i class="fas fa-trophy me-2"></i> Leaderboard</h4>
+            <div class="table-responsive shadow-lg rounded">
+                <table class="table table-hover">
+                    <thead class="bg-warning text-dark">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Quizzes</th>
+                            <th>Average Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in leaderboard %}
+                        <tr class="align-middle">
+                            <td class="fw-bold">{{ loop.index }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.attempts }}</td>
+                            <td class="fw-bold text-primary">{{ "%.2f"|format(student.avg_score) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

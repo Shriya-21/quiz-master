@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Quiz{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4" style="color: black;">Edit Quiz</h2>
+
+    <!-- FORM STARTS -->
+    <form method="POST" action="{{ url_for('edit_quiz', quiz_id=quiz.quiz_id) }}" class="p-4 rounded shadow-sm" style="background-color: #fffcf1;">
+
+        <!-- Quiz Details -->
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Quiz Name</label>
+            <input type="text" class="form-control shadow-none" name="name" value="{{ quiz.name }}" required style="background-color: #FEF5E7;">
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Exam Duration (in minutes)</label>
+            <input type="number" class="form-control shadow-none" name="quiz_duration" value="{{ quiz.quiz_duration }}" required style="background-color: #FEF5E7;">
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Deadline</label>
+            <input type="datetime-local" class="form-control shadow-none" name="deadline" value="{{ quiz.deadline }}" required style="background-color: #FEF5E7;">
+        </div>
+
+        <hr style="border-top: 2px solid rgba(0, 0, 0, 0.1);">
+
+        <!-- Questions Section -->
+        <h3 class="mb-3" style="color: black;">Questions</h3>
+        <table class="table table-hover">
+            <thead class="table-warning">
+                <tr>
+                    <th>Question</th>
+                    <th>Options</th>
+                    <th>Correct Option</th>
+                    <th>Marks</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in quiz.questions %}
+                <tr>
+                    <td>
+                        <input type="text" class="form-control shadow-none" name="question_text_{{ question.id }}" value="{{ question.text }}" required style="background-color: #FEF5E7;">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control shadow-none mb-1" name="option_a_{{ question.id }}" value="{{ question.option_a }}" required style="background-color: #FEF5E7;">
+                        <input type="text" class="form-control shadow-none mb-1" name="option_b_{{ question.id }}" value="{{ question.option_b }}" required style="background-color: #FEF5E7;">
+                        <input type="text" class="form-control shadow-none mb-1" name="option_c_{{ question.id }}" value="{{ question.option_c }}" required style="background-color: #FEF5E7;">
+                        <input type="text" class="form-control shadow-none" name="option_d_{{ question.id }}" value="{{ question.option_d }}" required style="background-color: #FEF5E7;">
+                    </td>
+                    <td>
+                        <select class="form-select shadow-none" name="correct_option_{{ question.id }}" style="background-color: #FEF5E7;">
+                            <option value="A" {% if question.correct_option == "A" %}selected{% endif %}>A</option>
+                            <option value="B" {% if question.correct_option == "B" %}selected{% endif %}>B</option>
+                            <option value="C" {% if question.correct_option == "C" %}selected{% endif %}>C</option>
+                            <option value="D" {% if question.correct_option == "D" %}selected{% endif %}>D</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control shadow-none" name="marks_{{ question.id }}" value="{{ question.marks }}" required style="background-color: #FEF5E7;">
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('delete_question', question_id=question.id) }}" onsubmit="return confirm('Are you sure?');" style="display: inline;">
+                            <button type="submit" class="btn btn-danger shadow-none">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('add_question', quiz_id=quiz.quiz_id) }}" class="btn shadow-none" style="background-color: black; color: white;">Add Question</a>
+
+        <!-- Submit Button for Updating Everything -->
+        <button type="submit" class="btn float-end shadow-none" style="background-color: black; color: white;">Update Quiz</button>
+        <a href="{{ url_for('admin_quizzes') }}" class="btn btn-secondary shadow-none">Back</a>
+
+    </form>
+    <!-- FORM ENDS -->
+
+</div>
+{% endblock %}

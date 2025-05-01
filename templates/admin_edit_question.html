@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Question{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4" style="color: black;">Edit Question</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Question</label>
+            <textarea class="form-control" name="text" required
+                      style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">{{ question.text }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Marks</label>
+            <input type="number" class="form-control" name="marks" value="{{ question.marks }}" required
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Option A</label>
+            <input type="text" class="form-control" name="option_a" value="{{ question.option_a }}" required
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Option B</label>
+            <input type="text" class="form-control" name="option_b" value="{{ question.option_b }}" required
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Option C</label>
+            <input type="text" class="form-control" name="option_c" value="{{ question.option_c }}" required
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Option D</label>
+            <input type="text" class="form-control" name="option_d" value="{{ question.option_d }}" required
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Correct Option</label>
+            <select class="form-control" name="correct_option" required
+                    style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+                <option value="A" {% if question.correct_option == "A" %}selected{% endif %}>A</option>
+                <option value="B" {% if question.correct_option == "B" %}selected{% endif %}>B</option>
+                <option value="C" {% if question.correct_option == "C" %}selected{% endif %}>C</option>
+                <option value="D" {% if question.correct_option == "D" %}selected{% endif %}>D</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn" style="background-color: #B7950B; color: white;">Update Question</button>
+    </form>
+
+    <a href="{{ url_for('edit_quiz', quiz_id=question.quiz_id) }}" class="btn btn-secondary mt-3">Back to Quiz</a>
+</div>
+{% endblock %}

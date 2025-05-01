@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Transcript{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center fw-bold" style="color: #3e2723;">Quiz Transcript</h2>
+
+    <div class="card shadow-sm p-4 mt-4 border-0" style="background-color: #fffcf2;">
+        <h4 class="fw-bold" style="color: #3e2723;">{{ user.full_name }}</h4>
+        <p class="mb-1" style="color: #5c3d2e;"><strong>Subject:</strong> {{ quiz.chapter.subject.name }}</p>
+        <p class="mb-1" style="color: #5c3d2e;"><strong>Quiz:</strong> {{ quiz.name }}</p>
+        <p class="mb-1" style="color: #5c3d2e;"><strong>Date:</strong> {{ score.time_stamp_of_attempt.strftime('%Y-%m-%d') }}</p>
+        <h5 class="fw-bold mt-2" style="color: #3e2723;">Total Score: 
+            <span style="color: green;">{{ score.total_scored }} / {{ quiz.total_marks }}</span>
+        </h5>
+        <p class="mb-1" style="color: #5c3d2e;"><strong>Percentage:</strong> {{ score_percentage }} %</p>
+        <h5 class="fw-bold mt-2" style="color: #3e2723;">Highest Score: 
+            <span style="color: green;">{{ highest_score.total_scored }} / {{ quiz.total_marks }}</span>
+        </h5>
+        <p class="mb-1" style="color: #5c3d2e;"><strong>Percentage:</strong> {{ highest_score.total_scored / quiz.total_marks *100 }} %</p>
+        <p class="mb-1" style="color: #5c3d2e;"><strong>Number of Attempts:</strong> {{ number_of_attempts }}</p>
+        <p class="mb-1" style="color: #5c3d2e;"><strong>Skipped:</strong> {{ skipped_questions }}</p>
+    </div>
+
+    <hr class="my-4" style="border-color: #ffbe0b;">
+
+    <h4 class="fw-bold" style="color: #3e2723;">Question Breakdown</h4>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead style="background-color: #fff3c1;">
+                <tr style="color: #3e2723;">
+                    <th>Question</th>
+                    <th>Selected Answer</th>
+                    <th>Correct Answer</th>
+                    <th>Marks Awarded</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in quiz.questions %}
+                <tr>
+                    <td class="fw-medium" style="color: #3e2723;">{{ question.text }}</td>
+                    <td>
+                        {% for answer in user_answers %}
+                            {% if answer.question_id == question.id %}
+                                <span style="color: {% if answer.selected_answer == question.correct_option %} #6d9e6d {% else %} #d1495b {% endif %};">
+                                    {{ answer.selected_answer }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td style="color: #6d9e6d;">{{ question.correct_option }}</td>
+                    <td class="fw-bold" style="color: #3e2723;">
+                        {% for answer in user_answers %}
+                            {% if answer.question_id == question.id %}
+                                {{ answer.marks_awarded }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ url_for('admin_quizzes') if current_user.is_admin else url_for('user_quizzes') }}" class="btn btn-outline-dark">Back</a>
+        <button onclick="window.print()" class="btn btn-warning">Download as PDF</button>
+    </div>
+</div>
+{% endblock %}

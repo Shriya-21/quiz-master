@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Add Question - {{ quiz.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4" style="color: black;">Add Question to "{{ quiz.name }}"</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Question</label>
+            <textarea name="text" class="form-control" required 
+                      style="border: 1px solid #D4AC0D; background-color: #FCF3CF;"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Marks</label>
+            <input type="number" name="marks" class="form-control mb-2" placeholder="Marks" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Options</label>
+            <input type="text" name="option_a" class="form-control mb-2" placeholder="Option A" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+            <input type="text" name="option_b" class="form-control mb-2" placeholder="Option B" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+            <input type="text" name="option_c" class="form-control mb-2" placeholder="Option C" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+            <input type="text" name="option_d" class="form-control mb-2" placeholder="Option D" required 
+                   style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold" style="color: black;">Correct Answer</label>
+            <select name="correct_option" class="form-control" required 
+                    style="border: 1px solid #D4AC0D; background-color: #FCF3CF;">
+                <option value="A">Option A</option>
+                <option value="B">Option B</option>
+                <option value="C">Option C</option>
+                <option value="D">Option D</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn" style="background-color: black; color: white;">Add Question</button>
+        <a href="{{ url_for('admin_quizzes', quiz_id=quiz.id) }}" class="btn btn-secondary">Done</a>
+    </form>
+</div>
+{% endblock %}

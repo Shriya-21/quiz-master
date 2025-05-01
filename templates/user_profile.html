@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4 fw-bold text-dark">User Profile</h2>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 p-4" style="background-color: #ffcc80; color: #3e2723;">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-user-circle" style="font-size: 80px; color: #3e2723;"></i>
+                    </div>
+                    
+                    <div class="col-md-9">
+                        <p class="mb-2"><strong>Full Name:</strong> {{ user.full_name }}</p>
+                        <p class="mb-2"><strong>Email:</strong> {{ user.email }}</p>
+                        <p class="mb-2"><strong>Date of Birth:</strong> {{ user.dob.strftime('%Y-%m-%d') if user.dob else 'N/A' }}</p>
+                        <p class="mb-2"><strong>Age:</strong> {{ user.calculate_age if user.dob else 'N/A' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-8 mx-auto">
+            <h3 class="text-center fw-bold text-dark">Enrolled Subjects</h3>
+            <div class="row g-3">
+                {% for subject in user.subjects %}
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0 p-3" style="background-color: #ffe082; color: #3e2723;">
+                        <i class="fas fa-book me-2"></i> <strong>{{ subject.name }}</strong>
+                    </div>
+                </div>
+                {% else %}
+                <div class="text-center text-muted">No subjects enrolled.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('edit_profile') }}" class="btn btn-dark me-2 ripple">Edit Profile</a>
+        <a href="{{ url_for('change_password') }}" class="btn btn-secondary ripple">Change Password</a>
+    </div>
+</div>
+{% endblock %}
