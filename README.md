@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Quiz Master - V1
 
 **Quiz Master - V1** is a web-based quiz preparation platform developed using Flask. It is designed to facilitate structured learning and assessment for students while providing comprehensive administrative control and analytics for instructors.
@@ -80,3 +81,6 @@ quiz-master-v1/
 └── README.md
 
 ---
+=======
+# quiz-master
+>>>>>>> origin/main
