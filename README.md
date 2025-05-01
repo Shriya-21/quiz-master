@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 # Quiz Master - V1
 
-**Quiz Master - V1** is a web-based quiz preparation platform developed using Flask. It is designed to facilitate structured learning and assessment for students while providing comprehensive administrative control and analytics for instructors.
+**Quiz Master - V1** is a web-based quiz preparation platform developed using Flask. It is designed to facilitate structured learning and assessment for students while providing instructors with comprehensive administrative control and analytics.
 
 ---
 
@@ -59,28 +58,26 @@ This application supports two types of users:
 ---
 
 ## 📁 Project Structure
-
-quiz-master-v1/ 
-├── app.py 
-├── models
-│ ├── models.py 
-│ ├── __init__.py 
-├── templates/ 
-│ ├── base.html 
-│ ├── admin_dashboard.html 
-│ ├── user_profile.html 
-│ └── ... 
-├── static/ 
-│ ├── css/ 
-│ └── charts/ 
-├── instance/ 
-│ └── quizmaster.sqlite 
+```
+quiz-master-v1/
+├── app.py
+├── models/
+│   ├── models.py
+│   ├── __init__.py
+├── templates/
+│   ├── base.html
+│   ├── admin_dashboard.html
+│   ├── user_profile.html
+│   └── ...
+├── static/
+│   ├── css/
+│   └── charts/
+├── instance/
+│   └── quizmaster.sqlite
 ├── config.py
 ├── extensions.py
-├── .gitignore 
+├── .gitignore
 └── README.md
+```
 
 ---
-=======
-# quiz-master
->>>>>>> origin/main
